@@ -8,17 +8,12 @@ using Persistence.Models;
 
 namespace Persistence
 {
-    public class OnlineCoursesDbContext : IdentityDbContext<AppUser>
+    public class OnlineCoursesDbContext(DbContextOptions options) : IdentityDbContext<AppUser>(options)
     {
         public DbSet<Course> Courses { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<Price>? Prices { get; set; }
         public DbSet<Qualification>? Qualifications { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite("Data Source=OnlineCourses.db").LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information).EnableSensitiveDataLogging();
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
