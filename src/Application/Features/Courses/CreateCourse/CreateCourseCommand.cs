@@ -23,7 +23,7 @@ namespace Application.Features.Courses.CreateCourse
 
                 _context.Add(course);
 
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(cancellationToken);
 
                 return course.Id;
             }
