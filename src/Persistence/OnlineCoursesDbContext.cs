@@ -3,12 +3,11 @@ using Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Persistence.Models;
 
 namespace Persistence
 {
-    public class OnlineCoursesDbContext(DbContextOptions options) : IdentityDbContext<AppUser>(options)
+    public class OnlineCoursesDbContext(DbContextOptions<OnlineCoursesDbContext> options) : IdentityDbContext<AppUser>(options)
     {
         public DbSet<Course> Courses { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
