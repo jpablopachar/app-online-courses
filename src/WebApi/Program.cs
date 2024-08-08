@@ -1,5 +1,8 @@
 using Application;
+using Microsoft.AspNetCore.Identity;
 using Persistence;
+using Persistence.Models;
+using WebApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddIdentityCore<AppUser>(option =>
+{
+    option.Password.RequireNonAlphanumeric = false;
+    option.User.RequireUniqueEmail = true;
+}).AddRoles<IdentityRole>().AddEntityFrameworkStores<OnlineCoursesDbContext>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,5 +32,9 @@ if (app.Environment.IsDevelopment())
 }
 
 // app.UseHttpsRedirection();
+
+await app.SeedDataAuthentication();
+
+app.MapControllers();
 
 app.Run();
