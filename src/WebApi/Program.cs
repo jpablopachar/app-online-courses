@@ -1,4 +1,6 @@
 using Application;
+using Application.Interfaces;
+using Infrastructure.Reports;
 using Microsoft.AspNetCore.Identity;
 using Persistence;
 using Persistence.Models;
@@ -8,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplication();
 builder.Services.AddPersistence(builder.Configuration);
+
+builder.Services.AddScoped(typeof(IReportService<>), typeof(ReportService<>));
 
 builder.Services.AddControllers();
 
